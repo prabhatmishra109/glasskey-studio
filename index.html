@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlassKey Studio — Universal Music & Song Search Piano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="indigo">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </div>
+                <div>
+                    <h1>GlassKey Studio</h1>
+                    <p class="subtitle">Search & Play Bollywood, Hollywood, Tollywood & Bhojpuri Tunes</p>
+                </div>
+            </div>
+
+            <div class="controls-group">
+                <div class="theme-selector">
+                    <div class="theme-btn active" style="background: #6366f1;" onclick="setTheme('indigo', this)" title="Neon Indigo"></div>
+                    <div class="theme-btn" style="background: #ec4899;" onclick="setTheme('sunset', this)" title="Sunset Pink"></div>
+                    <div class="theme-btn" style="background: #10b981;" onclick="setTheme('emerald', this)" title="Emerald Forest"></div>
+                    <div class="theme-btn" style="background: #eab308;" onclick="setTheme('cyberpunk', this)" title="Cyber Gold"></div>
+                </div>
+                <button class="btn" id="sustain-btn" onclick="toggleSustain()">Continuous Sound: Off</button>
+            </div>
+        </header>
+
+        <!-- Song Search & Library Section -->
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text" id="song-search-input" placeholder="Search Bollywood, Bhojpuri, Tollywood or Hollywood songs (e.g. Kesariya, Lolipop, RRR, Believer)..." onkeyup="filterSongs()">
+                <button class="btn search-btn" onclick="filterSongs()">🔍 Search</button>
+            </div>
+
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="filterCategory('all')">All Songs</button>
+                <button class="tab-btn" onclick="filterCategory('bollywood')">Bollywood</button>
+                <button class="tab-btn" onclick="filterCategory('bhojpuri')">Bhojpuri</button>
+                <button class="tab-btn" onclick="filterCategory('tollywood')">Tollywood</button>
+                <button class="tab-btn" onclick="filterCategory('hollywood')">Hollywood</button>
+            </div>
+
+            <div class="song-results-grid" id="song-results-grid">
+                <!-- Song cards rendered dynamically via script.js -->
+            </div>
+        </section>
+
+        <!-- Studio Center -->
+        <div class="studio-center">
+            <div class="visualizer-screen">
+                <div class="now-playing-banner" id="now-playing-banner">🎵 Select a song or play piano manually</div>
+                <div class="current-note-display" id="note-display">🎹</div>
+                <div class="player-controls">
+                    <button class="btn play-control-btn" id="auto-play-btn" onclick="toggleAutoPlaySong()">▶ Auto Play Song</button>
+                    <button class="btn stop-btn" onclick="stopAllAudio()">⏹ Stop Audio</button>
+                </div>
+            </div>
+
+            <!-- Piano Keyboard -->
+            <div class="piano-wrapper">
+                <div class="piano" id="piano">
+                    <!-- Keys rendered dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="sound-settings">
+                <div class="setting-item">
+                    <label for="waveform-select">Instrument Sound:</label>
+                    <select id="waveform-select">
+                        <option value="sine">Grand Piano (Pure Sine)</option>
+                        <option value="triangle" selected>Soft Keyboard (Mellow Triangle)</option>
+                        <option value="sawtooth">Synth / Guitar (Bright Sawtooth)</option>
+                        <option value="square">Retro Flute (Square Wave)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="volume-slider">Volume:</label>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.7">
+                </div>
+            </div>
+
+            <div class="custom-midi-upload">
+                <label for="midi-file-input" class="btn">📁 Import Local Song (.mid)</label>
+                <input type="file" id="midi-file-input" accept=".mid,.midi" style="display:none;" onchange="handleMidiUpload(event)">
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
